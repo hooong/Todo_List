@@ -39,4 +39,24 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/members/login")
+    public String loginForm(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+        return "/members/loginFrom";
+    }
+
+    @PostMapping("/members/login")
+    public String login(@Valid MemberForm memberForm, BindingResult result) {
+        if (result.hasErrors()) {
+            return "members/loginForm";
+        }
+
+        Member member = Member.builder()
+                .userName(memberForm.getUserName())
+                .password(memberForm.getPassword())
+                .build();
+
+        memberService.login(member);
+        return "redirect:/todolist";
+    }
 }
