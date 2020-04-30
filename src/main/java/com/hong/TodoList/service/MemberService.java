@@ -1,6 +1,7 @@
 package com.hong.TodoList.service;
 
 import com.hong.TodoList.domain.Member;
+import com.hong.TodoList.dto.MemberDto;
 import com.hong.TodoList.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,38 +17,38 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     // 회원가입
     @Transactional
-    public Long signUp(Member member) {
-        validateDuplicateMember(member);
+    public Long signUp(MemberDto memberDto) {
+        validateDuplicateMember(memberDto);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
-        memberRepository.save(member);
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
 
-        return member.getId();
+        return memberRepository.save(memberDto.toEntity()).getId();
     }
 
     // 회원 중복 검사
-    private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByuserName(member.getUserName());
+    private void validateDuplicateMember(MemberDto memberDto) {
+        Optional<Member> findMembers = memberRepository.findByuserName(memberDto.getUserName());
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
 
     // 로그인
-    public Long login(Member member) {
-
-    }
+//    public Long login(Member member) {
+//
+//    }
 
     // 회원 전체 조회
     public List<Member> findMembers() {
@@ -56,7 +57,7 @@ public class MemberService {
 
     // 하나의 회원 검색 (id)
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.getOne(memberId);
     }
 
 //    @Override

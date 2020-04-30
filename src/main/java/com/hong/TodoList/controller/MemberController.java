@@ -1,8 +1,10 @@
 package com.hong.TodoList.controller;
 
 import com.hong.TodoList.domain.Member;
+import com.hong.TodoList.dto.MemberDto;
 import com.hong.TodoList.dto.MemberForm;
 import com.hong.TodoList.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MemberController {
 
-    private final MemberService memberService;
+    private MemberService memberService;
 
     @GetMapping("/members/signup")
     public String signupForm(Model model) {
@@ -30,12 +32,11 @@ public class MemberController {
             return "members/signupForm";
         }
 
-        Member member = Member.builder()
-                .userName(memberForm.getUserName())
-                .password(memberForm.getPassword())
-                .build();
+        MemberDto memberDto = new MemberDto();
+        memberDto.setUserName(memberForm.getUserName());
+        memberDto.setPassword(memberForm.getPassword());
 
-        memberService.signUp(member);
+        memberService.signUp(memberDto);
         return "redirect:/";
     }
 
@@ -56,7 +57,7 @@ public class MemberController {
                 .password(memberForm.getPassword())
                 .build();
 
-        memberService.login(member);
+//        memberService.login(member);
         return "redirect:/todolist";
     }
 }
