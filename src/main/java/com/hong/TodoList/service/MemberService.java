@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private MemberRepository memberRepository;
 
@@ -60,18 +60,19 @@ public class MemberService {
         return memberRepository.getOne(memberId);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Member userEntity = memberRepository.findByuserName(username);
-//
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//
-//        if (("admin").equals(username)) {
-//            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-//        } else {
-//            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-//        }
-//
-//        return new User(userEntity.getUserName(),userEntity.getPassword(),authorities);
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Optional<Member> userEntitywrapper = memberRepository.findByuserName(userName);
+        Member userEntity = userEntitywrapper.get();
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        if (("admin").equals(userName)) {
+            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+        } else {
+            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+        }
+
+        return new User(userEntity.getUserName(),userEntity.getPassword(),authorities);
+    }
 }

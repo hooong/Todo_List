@@ -9,4 +9,9 @@ public class HomeController {
     public String index() {
         return "/home/index";
     }
+
+    @GetMapping("/todolist")
+    public String home() {
+        return "/todolist";
+    }
 }
