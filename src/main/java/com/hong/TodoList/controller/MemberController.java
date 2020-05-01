@@ -42,7 +42,7 @@ public class MemberController {
 
     @GetMapping("/members/login")
     public String loginForm() {
-        return "/members/loginFrom";
+        return "/members/loginForm";
     }
 
     @GetMapping("/members/login/result")

@@ -3,6 +3,7 @@ package com.hong.TodoList.domain;
 import lombok.*;
 import javax.persistence.*;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter @Setter
 public class Member {
