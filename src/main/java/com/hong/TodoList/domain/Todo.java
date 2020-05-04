@@ -1,9 +1,6 @@
 package com.hong.TodoList.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -22,4 +19,11 @@ public class Todo {
 
     private String title;
     private String subtitle;
+
+    @Builder
+    public Todo(Long id, String title, String subtitle) {
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+    }
 }
