@@ -66,12 +66,7 @@ public class MemberService implements UserDetailsService {
         Member userEntity = userEntitywrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        if (("admin").equals(userName)) {
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        } else {
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-        }
+        authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
 
         return new User(userEntity.getUserName(),userEntity.getPassword(),authorities);
     }
