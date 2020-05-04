@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // TODO: 로그인 실패 시 정보 띄워주는 거
         http.authorizeRequests()
                     .antMatchers("/members/signup").permitAll()
                     .antMatchers("/**").hasRole("MEMBER")
