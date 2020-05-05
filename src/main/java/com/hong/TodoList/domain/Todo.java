@@ -13,7 +13,7 @@ public class Todo {
     @Id @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")     // FK
     private Member member;
 

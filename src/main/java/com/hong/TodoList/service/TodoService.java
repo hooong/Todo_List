@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,6 +30,14 @@ public class TodoService {
     }
 
     // todo삭제
+    @Transactional
+    public void delTodo(Long id) {
+        Optional<Todo> todo = todoRepository.findById(id);
+
+        if (!todo.isEmpty()) {
+            todoRepository.delete(todo.get());
+        }
+    }
 
     // todo조회
 }
