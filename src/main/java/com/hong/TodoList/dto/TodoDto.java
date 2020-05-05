@@ -16,6 +16,7 @@ public class TodoDto {
     public Todo toEntity(){
         return Todo.builder()
                 .id(id)
+                .member(member)
                 .title(title)
                 .subtitle(subtitle)
                 .build();
