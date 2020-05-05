@@ -2,6 +2,7 @@ package com.hong.TodoList.service;
 
 import com.hong.TodoList.domain.Member;
 import com.hong.TodoList.domain.Todo;
+import com.hong.TodoList.dto.TodoDto;
 import com.hong.TodoList.dto.TodoForm;
 import com.hong.TodoList.repository.TodoRepository;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,14 @@ public class TodoService {
     private TodoRepository todoRepository;
 
     // todo작성
-    public void createTodo(Member member, TodoForm todoForm) {
-        todoRepository.save(Todo.builder()
-                                .member(member)
-                                .title(todoForm.getTitle())
-                                .subtitle(todoForm.getSubtitle())
-                                .build());
+    @Transactional
+    public Long createTodo(Member member, TodoForm todoForm) {
+        TodoDto todo = new TodoDto();
+        todo.setMember(member);
+        todo.setTitle(todoForm.getTitle());
+        todo.setSubtitle(todoForm.getSubtitle());
+
+        return todoRepository.save(todo.toEntity()).getId();
     }
 
     // todo삭제

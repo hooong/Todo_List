@@ -1,6 +1,7 @@
 package com.hong.TodoList.controller;
 
 import com.hong.TodoList.domain.Member;
+import com.hong.TodoList.dto.TodoDto;
 import com.hong.TodoList.dto.TodoForm;
 import com.hong.TodoList.service.MemberService;
 import com.hong.TodoList.service.TodoService;
@@ -30,6 +31,10 @@ public class TodoController {
 
     @PostMapping("/todoCreate")
     public String create(Authentication authentication, @Valid TodoForm todoForm, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/todoCreate";
+        }
+
         Optional<Member> member = memberService.currentUser(authentication);
         todoService.createTodo(member.get(), todoForm);
 
