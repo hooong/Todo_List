@@ -1,7 +1,6 @@
 package com.hong.TodoList.controller;
 
 import com.hong.TodoList.domain.Member;
-import com.hong.TodoList.dto.TodoDto;
 import com.hong.TodoList.dto.TodoForm;
 import com.hong.TodoList.service.MemberService;
 import com.hong.TodoList.service.TodoService;
@@ -25,14 +24,14 @@ public class TodoController {
 
     @GetMapping("/todoCreate")
     public String createForm(Model model){
-        model.addAttribute("todoform",new TodoForm());
-        return "/todo/todoForm";
+        model.addAttribute("todoForm",new TodoForm());
+        return "/todo/todocreateForm";
     }
 
     @PostMapping("/todoCreate")
-    public String create(Authentication authentication, @Valid TodoForm todoForm, BindingResult result) {
+    public String create(@Valid TodoForm todoForm, BindingResult result, Authentication authentication) {
         if (result.hasErrors()) {
-            return "todo/todoForm";
+            return "todo/todocreateForm";
         }
 
         Optional<Member> member = memberService.currentUser(authentication);

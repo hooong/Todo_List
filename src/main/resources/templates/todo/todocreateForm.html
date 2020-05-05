@@ -5,7 +5,7 @@
     <title>할일 작성</title>
 </head>
 <body>
-<form th:action="@{/todoCreate}" th:object="${todoform}" method="post">
+<form th:action="@{/todoCreate}" th:object="${todoForm}" method="post">
 
     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect data</p>
     <input type="text" th:field="*{title}" placeholder="할일 입력">
