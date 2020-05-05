@@ -21,8 +21,9 @@ public class Todo {
     private String subtitle;
 
     @Builder
-    public Todo(Long id, String title, String subtitle) {
+    public Todo(Long id, Member member, String title, String subtitle) {
         this.id = id;
+        this.member = member;
         this.title = title;
         this.subtitle = subtitle;
     }

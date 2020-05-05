@@ -19,19 +19,16 @@ import java.util.Optional;
 @AllArgsConstructor
 public class HomeController {
     private MemberService memberService;
-    private MemberRepository memberRepository;
     private TodoRepository todoRepository;
 
     @GetMapping("/")
     public String index(Authentication authentication, Model model) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        Optional<Member> userEntitywrapper = memberRepository.findByuserName(userDetails.getUsername());
+        Optional<Member> userEntitywrapper = memberService.currentUser(authentication);
 
         if (!userEntitywrapper.isEmpty()) {
             Member userEntity = userEntitywrapper.get();
 
-            List<Todo> todos = todoRepository.findAllByid(userEntity.getId());
+//            List<Todo> todos = todoRepository.findAllByid(userEntity.getId());
 
             model.addAttribute("id", userEntity.getId());
         }

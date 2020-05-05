@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>할일 작성</title>
+</head>
+<body>
+<form action="/members/signup" th:object="${memberForm}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <input type="text" th:field="*{userName}" placeholder="아이디입력">
+    <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Incorrect data</p>
+    <br>
+    <input type="password" th:field="*{password}" placeholder="비밀번호">
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</p>
+    <br>
+    <button type="submit">확인</button>
+</form>
+</body>
+</html>

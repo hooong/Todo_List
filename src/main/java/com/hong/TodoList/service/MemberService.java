@@ -5,6 +5,7 @@ import com.hong.TodoList.dto.MemberDto;
 import com.hong.TodoList.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -53,6 +54,12 @@ public class MemberService implements UserDetailsService {
     // 하나의 회원 검색 (id)
     public Member findOne(Long memberId) {
         return memberRepository.getOne(memberId);
+    }
+
+    // 현재 로그인 된 멤버 조회
+    public Optional<Member> currentUser(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return memberRepository.findByuserName(userDetails.getUsername());
     }
 
     @Override
