@@ -32,7 +32,7 @@ public class TodoController {
     @PostMapping("/todoCreate")
     public String create(Authentication authentication, @Valid TodoForm todoForm, BindingResult result) {
         if (result.hasErrors()) {
-            return "/todoCreate";
+            return "todo/todoForm";
         }
 
         Optional<Member> member = memberService.currentUser(authentication);
