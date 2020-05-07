@@ -10,6 +10,25 @@
 <a sec:authorize="isAuthenticated()" th:href="@{/members/logout}"><button>로그아웃</button></a>
 <h1><span sec:authentication="name"></span>님의 ToDo List</h1>
 
-<h2 th:text="${id}">userId</h2>
+<div>
+    <table class="table table-striped"> <thead>
+    <tr>
+        <th>#</th>
+        <th>할일</th>
+        <th>간단설명</th>
+        <th></th>
+    </tr>
+    </thead>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.subtitle}"></td>
+            <td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

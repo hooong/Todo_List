@@ -28,9 +28,9 @@ public class HomeController {
         if (!userEntitywrapper.isEmpty()) {
             Member userEntity = userEntitywrapper.get();
 
-//            List<Todo> todos = todoRepository.findAllByid(userEntity.getId());
+            List<Todo> todos = todoRepository.findAllBymember(userEntity);
 
-            model.addAttribute("id", userEntity.getId());
+            model.addAttribute("todos", todos);
         }
 
         return "/home/index";
