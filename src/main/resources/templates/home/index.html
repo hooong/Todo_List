@@ -24,8 +24,9 @@
             <td th:text="${todo.id}"></td>
             <td th:text="${todo.title}"></td>
             <td th:text="${todo.subtitle}"></td>
-            <td>
+            <td><a th:href="@{/todoDelete/{id}(id = ${todo.id})}"><button>완료</button></a></td>
         </tr>
+
         </tbody>
     </table>
 </div>
