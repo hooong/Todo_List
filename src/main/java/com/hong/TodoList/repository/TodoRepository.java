@@ -11,4 +11,8 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     // 해당 회원의 todo 불러오기
     List<Todo> findAllBymember(Member member);
+
+    // todo 삭제하기
+    void deleteById(Long id);
+
 }

@@ -32,11 +32,7 @@ public class TodoService {
     // todo삭제
     @Transactional
     public void delTodo(Long id) {
-        Optional<Todo> todo = todoRepository.findById(id);
-
-        if (!todo.isEmpty()) {
-            todoRepository.delete(todo.get());
-        }
+        todoRepository.deleteById(id);
     }
 
     // todo조회
