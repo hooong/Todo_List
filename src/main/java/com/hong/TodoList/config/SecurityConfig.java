@@ -1,5 +1,6 @@
 package com.hong.TodoList.config;
 
+import com.hong.TodoList.handler.AuthFailureHandler;
 import com.hong.TodoList.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
+    private AuthFailureHandler authFailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,11 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO: 로그인 안한 상태로 url 접근시 에러 발생
         http.authorizeRequests()
                     .antMatchers("/members/signup").permitAll()
+                    .antMatchers("/members/failLogin").permitAll()
                     .antMatchers("/**").hasRole("MEMBER")
                     .and()
                 .formLogin()
                     .loginPage("/members/login")
-                    .defaultSuccessUrl("/")
+                    .failureHandler(authFailureHandler)
                     .permitAll()
                     .and()
                 .logout()

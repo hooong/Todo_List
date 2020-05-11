@@ -45,8 +45,8 @@ public class MemberController {
         return "/members/loginForm";
     }
 
-    @GetMapping("/members/login/result")
-    public String loginSuccess() {
-        return "/members/successLogin";
+    @GetMapping("/members/failLogin")
+    public String loginFail() {
+        return "/members/failLogin";
     }
 }
